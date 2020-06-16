@@ -11,7 +11,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class UserProfile(models.Model):
+class UserProfile(BaseModel):
     GENDER_CHOICE = (
         ('male', '男'),
         ('female', '女')

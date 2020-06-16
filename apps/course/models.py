@@ -1,5 +1,6 @@
 from django.db import models
 from apps.user.models import BaseModel
+from apps.organization.models import CourseOrg, Teacher
 
 
 # Create your models here.
@@ -10,6 +11,8 @@ class Course(BaseModel):
         ('zj', '中级'),
         ('gj', '高级')
     )
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE)
     name = models.CharField(verbose_name='课程名', max_length=50)
     desc = models.CharField(verbose_name='描述', max_length=300)
     learn_times = models.PositiveIntegerField(verbose_name='时长/分', default=0)
@@ -18,12 +21,14 @@ class Course(BaseModel):
     fav_nums = models.PositiveIntegerField(verbose_name='收藏次数', default=0)
     click_nums = models.PositiveIntegerField(verbose_name='点击数', default=0)
     notice = models.CharField(verbose_name='课程公告', max_length=300, default='')
-    category = models.CharField(verbose_name='类别', max_length=20)
-    tag = models.CharField(verbose_name='标签', max_length=10)
-    youneed_know = models.CharField(verbose_name='课程须知', max_length=300)
-    teacher_tell = models.CharField(verbose_name='老师告诉你', max_length=300)
+    category = models.CharField(verbose_name='类别', max_length=20, default=u'后端开发')
+    tag = models.CharField(verbose_name='标签', max_length=10, default='')
+    youneed_know = models.CharField(verbose_name='课程须知', max_length=300, default='')
+    teacher_tell = models.CharField(verbose_name='老师告诉你', max_length=300, default='')
+    is_classics = models.BooleanField(verbose_name='是否经典', default=False)
     detail = models.TextField(verbose_name='课程详情')
     image = models.ImageField(verbose_name='封面图', upload_to='courses/%Y/%m', max_length=100)
+    is_banner = models.BooleanField(verbose_name='是否广告位', default=False)
 
     class Meta:
         verbose_name = '课程'
