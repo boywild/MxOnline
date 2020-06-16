@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 
 
@@ -11,7 +12,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class UserProfile(BaseModel):
+class UserProfile(AbstractUser):
     GENDER_CHOICE = (
         ('male', '男'),
         ('female', '女')
@@ -22,3 +23,7 @@ class UserProfile(BaseModel):
     address = models.CharField(verbose_name='地址', max_length=100, default='')
     mobile = models.CharField(verbose_name='手机', max_length=11)
     image = models.ImageField(verbose_name='图像', upload_to='head_image/%Y/%m', default='default.jpg')
+
+    class Meta:
+        verbose_name = "用户信息"
+        verbose_name_plural = verbose_name
