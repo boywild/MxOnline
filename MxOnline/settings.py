@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.course.apps.CourseConfig',
-    'apps.organization.apps.OrganizationConfig',
-    'apps.operation.apps.OperationConfig',
     'apps.user.apps.UserConfig',
+    'apps.organization.apps.OrganizationConfig',
+    'apps.operation.apps.OperationConfig'
 ]
 
 MIDDLEWARE = [
@@ -121,7 +121,9 @@ USE_TZ = False
 
 
 AUTH_USER_MODEL = 'user.UserProfile'
-
+AUTHENTICATION_BACKENDS = [
+    "apps.users.views.CustomAuth"
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
