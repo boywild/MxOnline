@@ -2,11 +2,11 @@ from django.db import models
 from apps.user.models import BaseModel
 from apps.course.models import Course
 from apps.user.models import UserProfile
-
+from six import python_2_unicode_compatible
 
 # Create your models here.
 
-
+@python_2_unicode_compatible
 class UserAsk(BaseModel):
     name = models.CharField(verbose_name='名字', max_length=20)
     mobile = models.CharField(verbose_name='联系电话', max_length=11)
@@ -16,7 +16,7 @@ class UserAsk(BaseModel):
         verbose_name = '课程咨询'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class CourseComment(BaseModel):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
@@ -26,7 +26,7 @@ class CourseComment(BaseModel):
         verbose_name = '课程留言'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class UserCourse(BaseModel):
     FAV_TYPE_CHOICE = ((1, "课程"), (2, "课程机构"), (3, "讲师"))
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
@@ -37,7 +37,7 @@ class UserCourse(BaseModel):
         verbose_name = '我的课程'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class UserFavorite(BaseModel):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
 
@@ -45,7 +45,7 @@ class UserFavorite(BaseModel):
         verbose_name = '我的收藏'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class UserMessage(BaseModel):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
     message = models.CharField(verbose_name='消息内容', max_length=200)

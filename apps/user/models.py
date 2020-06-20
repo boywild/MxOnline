@@ -1,17 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
-
+from six import python_2_unicode_compatible
 
 # Create your models here.
 
+@python_2_unicode_compatible
 class BaseModel(models.Model):
     add_time = models.DateTimeField(verbose_name='添加时间', default=datetime.now)
 
     class Meta:
         abstract = True
 
-
+@python_2_unicode_compatible
 class UserProfile(AbstractUser):
     GENDER_CHOICE = (
         ('male', '男'),

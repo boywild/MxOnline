@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
+import six
+
+if six.PY3 and sys.getdefaultencoding()=='ascii':
+    import imp
+    imp.reload(sys)
+    sys.setdefaultencoding('utf-8')
+
+from django.utils.translation import ugettext_lazy as _
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +49,10 @@ INSTALLED_APPS = [
     'apps.user.apps.UserConfig',
     'apps.organization.apps.OrganizationConfig',
     'apps.operation.apps.OperationConfig',
-    'DjangoUeditor'
+    'DjangoUeditor',
+    'xadmin',
+    'crispy_forms',
+    'reversion'
 ]
 
 MIDDLEWARE = [

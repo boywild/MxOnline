@@ -2,10 +2,11 @@ from django.db import models
 from apps.user.models import BaseModel
 from apps.organization.models import CourseOrg, Teacher
 from DjangoUeditor.models import UEditorField
-
+from six import python_2_unicode_compatible
 
 # Create your models here.
 
+@python_2_unicode_compatible
 class Course(BaseModel):
     DEGREE_CHOICE = (
         ('cj', '初级'),
@@ -37,7 +38,7 @@ class Course(BaseModel):
         verbose_name = '课程'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class Lesson(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
     name = models.CharField(verbose_name='章节', max_length=100)
@@ -47,7 +48,7 @@ class Lesson(BaseModel):
         verbose_name = '课程章节'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class Video(BaseModel):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='课程')
     name = models.CharField(verbose_name='视频名', max_length=100)
@@ -58,7 +59,7 @@ class Video(BaseModel):
         verbose_name = '课程视频'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class CourseResource(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
     name = models.CharField(verbose_name='资源名', max_length=100)

@@ -1,9 +1,11 @@
 from django.db import models
 from apps.user.models import BaseModel
 from DjangoUeditor.models import UEditorField
-
+from six import python_2_unicode_compatible
 
 # Create your models here.
+
+@python_2_unicode_compatible
 class City(BaseModel):
     name = models.CharField(verbose_name='城市名', max_length=20)
     desc = models.CharField(verbose_name='描述', max_length=200, default='')
@@ -12,7 +14,7 @@ class City(BaseModel):
         verbose_name = '城市'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class CourseOrg(BaseModel):
     CATEGORY_CHOICE = (
         ('pxjg', '培训机构'),
@@ -37,7 +39,7 @@ class CourseOrg(BaseModel):
         verbose_name = '机构'
         verbose_name_plural = verbose_name
 
-
+@python_2_unicode_compatible
 class Teacher(BaseModel):
     course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name='机构')
     name = models.CharField(verbose_name='名字', max_length=200)
