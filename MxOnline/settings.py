@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'apps.course.apps.CourseConfig',
     'apps.user.apps.UserConfig',
     'apps.organization.apps.OrganizationConfig',
-    'apps.operation.apps.OperationConfig'
+    'apps.operation.apps.OperationConfig',
+    'DjangoUeditor'
 ]
 
 MIDDLEWARE = [

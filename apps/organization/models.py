@@ -1,5 +1,6 @@
 from django.db import models
 from apps.user.models import BaseModel
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -20,7 +21,9 @@ class CourseOrg(BaseModel):
     )
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='城市')
     name = models.CharField(verbose_name='机构名', max_length=200)
-    desc = models.TextField(verbose_name='机构介绍')
+    desc = UEditorField(u'机构介绍', width=600, height=300, toolbars='full', imagePath='course/ueditor/iamges/',
+                        filePath='course/ueditor/images/',
+                        upload_settings={'imageMaxSize': 1204000}, settings={}, command=None, blank=True)
     tag = models.CharField(verbose_name='机构标签', max_length=10)
     category = models.CharField(verbose_name='类别', choices=CATEGORY_CHOICE, max_length=200, default='pxjg')
     click_nums = models.PositiveIntegerField(verbose_name='浏览次数', default=0)

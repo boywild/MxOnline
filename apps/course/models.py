@@ -1,6 +1,7 @@
 from django.db import models
 from apps.user.models import BaseModel
 from apps.organization.models import CourseOrg, Teacher
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -11,8 +12,8 @@ class Course(BaseModel):
         ('zj', '中级'),
         ('gj', '高级')
     )
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name='课程所属教师')
+    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name='课程所属机构')
     name = models.CharField(verbose_name='课程名', max_length=50)
     desc = models.CharField(verbose_name='描述', max_length=300)
     learn_times = models.PositiveIntegerField(verbose_name='时长/分', default=0)
@@ -26,7 +27,9 @@ class Course(BaseModel):
     youneed_know = models.CharField(verbose_name='课程须知', max_length=300, default='')
     teacher_tell = models.CharField(verbose_name='老师告诉你', max_length=300, default='')
     is_classics = models.BooleanField(verbose_name='是否经典', default=False)
-    detail = models.TextField(verbose_name='课程详情')
+    detail = UEditorField(u'课程详情', width=600, height=300, toolbars='full', imagePath='courses/ueditor/images/',
+                          filePath='courses/ueditor/files/',
+                          upload_settings={'imageMaxSize': 1204000}, settings={}, command=None, blank=True, default='')
     image = models.ImageField(verbose_name='封面图', upload_to='courses/%Y/%m', max_length=100)
     is_banner = models.BooleanField(verbose_name='是否广告位', default=False)
 

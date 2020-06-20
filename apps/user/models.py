@@ -6,7 +6,7 @@ from datetime import datetime
 # Create your models here.
 
 class BaseModel(models.Model):
-    add_date = models.DateField(verbose_name='添加时间', default=datetime.now)
+    add_time = models.DateTimeField(verbose_name='添加时间', default=datetime.now)
 
     class Meta:
         abstract = True
