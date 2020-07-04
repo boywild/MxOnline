@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 import xadmin
+from django.views.generic import TemplateView
 
 xadmin.autodiscover()
 
@@ -26,7 +27,9 @@ from xadmin.plugins import xversion
 xversion.register_models()
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html'), name="index"),
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
+
 ]
