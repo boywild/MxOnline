@@ -3,7 +3,7 @@ from .models import Course, CourseResource, Lesson, Video
 
 
 class GlobalSetting(object):
-    site_title = '暮雪'
+    site_title = '慕学'
     site_footer = '开科唯识'
 
 
