@@ -14,13 +14,13 @@ import os
 import sys
 import six
 
-if six.PY3 and sys.getdefaultencoding()=='ascii':
+if six.PY3 and sys.getdefaultencoding() == 'ascii':
     import imp
+
     imp.reload(sys)
     sys.setdefaultencoding('utf-8')
 
 from django.utils.translation import ugettext_lazy as _
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -133,7 +133,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 AUTH_USER_MODEL = 'user.UserProfile'
 # AUTHENTICATION_BACKENDS = [
 #     "apps.users.views.CustomAuth"
@@ -148,3 +147,5 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+API_KEY_YUN_PIAN = '6624878a09526a06579ad51e44ac7986'

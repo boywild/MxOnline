@@ -10,3 +10,6 @@
 1. 用户验证 `authenticated`
 2. 页面重定向 `HttpReponseRedirect` `reverse`
 3. `view`中判断是否登录`request.user.authenticated`
+4. `form`字段验证
+5. `form`生成
+6. 云片短信验证码
