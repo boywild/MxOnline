@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from apps.user.views import LoginView, RegisterView
+from apps.user.views import LoginView, LogoutView, RegisterView
 
 import xadmin
 
@@ -30,7 +30,7 @@ xversion.register_models()
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name="index"),
     path('login/', LoginView.as_view(), name="login"),
-    path('logout/', LoginView.as_view(), name="logout"),
+    path('logout/', LogoutView.as_view(), name="logout"),
     path('register/', RegisterView.as_view(), name="register"),
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),

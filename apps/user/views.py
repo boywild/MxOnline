@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from apps.user.forms import LoginForm
@@ -10,7 +10,8 @@ from apps.user.forms import LoginForm
 
 class LoginView(View):
     def get(self, request, *args, **kwargs):
-        # if(is_lo):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
         return render(request, 'login.html')
 
     def post(self, request, *args, **kwargs):
@@ -30,7 +31,8 @@ class LoginView(View):
 
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
-        pass
+        logout(request)
+        return HttpResponseRedirect(reverse('index'))
 
     def post(self, request, *args, **kwargs):
         pass
@@ -38,6 +40,8 @@ class LogoutView(View):
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
         return render(request, 'register.html')
 
     def post(self, request, *args, **kwargs):
