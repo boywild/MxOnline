@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.organization.apps.OrganizationConfig',
     'apps.operation.apps.OperationConfig',
     'DjangoUeditor',
+    'captcha',
     'xadmin',
     'crispy_forms',
     'reversion'
@@ -148,4 +149,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 云片短信
 API_KEY_YUN_PIAN = '6624878a09526a06579ad51e44ac7986'
+
+# redis配置
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379

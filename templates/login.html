@@ -69,10 +69,10 @@
             </div>
             <div class="fl form-box">
                 <div class="tab">
-                    <h2 class="active">账号登录</h2>
-                    <h2>动态登录</h2>
+                    <h2 class="{% if not is_dynamic %}active{% endif %}">账号登录</h2>
+                    <h2 class="{% if is_dynamic %}active{% endif %}">动态登录</h2>
                 </div>
-                <form class="tab-form" action="{% url 'login' %}" method="post" autocomplete="off" id="form1">
+                <form class="tab-form {% if is_dynamic %}hide{% endif %}" action="{% url 'login' %}" method="post" autocomplete="off" id="form1">
                     {% csrf_token %}
                     <div class="form-group marb20 {% if login_form.errors.username %}errorput{% endif %}">
                         <input name="username" value="{{ login_form.username.value }}" id="account_l" type="text" placeholder="手机号/邮箱"/>
@@ -93,19 +93,22 @@
                     </div>
                     <input class="btn btn-green" id="jsLoginBtn" type="submit" value="立即登录 > "/>
                 </form>
-                <form class="tab-form hide" action="{% url 'login' %}" id="mobile_register_form" autocomplete="off"
+                <form class="tab-form {% if is_dynamic %}{% else %}hide{% endif %}" action="{% url 'd_login' %}" id="mobile_register_form" autocomplete="off"
                       method="post" id="form2">
                     {% csrf_token %}
                     <div class="form-group marb20">
                         <input id="jsRegMobile" name="mobile" type="text" placeholder="请输入您的手机号码">
                     </div>
                     <div class="form-group marb20 blur" id="jsRefreshCode">
-                        <input autocomplete="off" class="form-control-captcha mobile-register-captcha"
-                               id="mobile-register-captcha_1" name="captcha_m_1" placeholder="请输入验证码" type="text">
-                        <input class="form-control-captcha mobile-register-captcha" id="mobile-register-captcha_0"
-                               name="captcha_m_0" placeholder="请输入验证码" type="hidden"
-                               value="f7ee32b98dff72e7c9248104b81b56c55188ec8a"> &nbsp;<img
-                            src="./多米乐首页_files/saved_resource" alt="captcha" class="captcha">
+{#                        <input autocomplete="off" class="form-control-captcha mobile-register-captcha"#}
+{#                               id="mobile-register-captcha_1" name="captcha_m_1" placeholder="请输入验证码" type="text">#}
+{#                        <input class="form-control-captcha mobile-register-captcha" id="mobile-register-captcha_0"#}
+{#                               name="captcha_m_0" placeholder="请输入验证码" type="hidden"#}
+{#                               value="f7ee32b98dff72e7c9248104b81b56c55188ec8a"> &nbsp;<img#}
+{#                            src="./多米乐首页_files/saved_resource" alt="captcha" class="captcha">#}
+
+                        {{ login_form.captcha }}
+                        {{ d_login.captcha }}
                     </div>
                     <div class="clearfix">
                         <div class="form-group marb8 verify-code">
@@ -118,7 +121,7 @@
                     </div>
                     <input class="btn btn-green" id="jsMobileRegBtn" type="button" value="立即登录">
                 </form>
-                <p class="form-p">没有慕学在线网帐号？<a href="register.html">[立即注册]</a></p>
+                <p class="form-p">没有慕学在线网帐号？<a href="{% url 'register' %}">[立即注册]</a></p>
             </div>
         </div>
     </div>

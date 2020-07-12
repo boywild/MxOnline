@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def single_send_sms(apiKey, code, mobile):
@@ -10,12 +11,11 @@ def single_send_sms(apiKey, code, mobile):
         'mobile': mobile,
         'text': text
     })
-    return res
+    return json.loads(res.text)
 
 
 if __name__ == '__main__':
     res = single_send_sms('6624878a09526a06579ad51e44ac7986', '123456', '15827196096')
-    import json
 
     res_json = json.loads(res.text)
     code = res_json['code']
