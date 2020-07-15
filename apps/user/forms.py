@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import login
 from captcha.fields import CaptchaField
 import redis
 from MxOnline.settings import REDIS_HOST, REDIS_PORT

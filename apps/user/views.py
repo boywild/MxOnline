@@ -102,11 +102,11 @@ class LogoutView(View):
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
-        register_form = RegisterGetForm(request.GET)
+        register_get_form = RegisterGetForm()
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('index'))
         return render(request, 'register.html', {
-            'register_form': register_form
+            'register_get_form': register_get_form
         })
 
     def post(self, request, *args, **kwargs):
@@ -125,6 +125,7 @@ class RegisterView(View):
         else:
             register_get_form = RegisterGetForm()
             return render(request, 'register.html', {
-                'register_post_form': register_post_form,
-                'register_get_form': register_get_form
+                'register_get_form': register_get_form,
+                'register_post_form': register_post_form
+
             })

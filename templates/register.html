@@ -89,30 +89,30 @@
                 <div class="tab-form">
                     <form id="mobile_register_form" method="post" action="{% url 'register' %}" autocomplete="off">
                         {% csrf_token %}
-                        <div class="form-group marb20 ">
+                        <div class="form-group marb20 {% if register_post_form.errors.mobile %}errorput{% endif %}">
                             <input id="jsRegMobile" name="mobile"
                                    value="{{ register_post_form.mobile.value|default_if_none:'' }}" type="text"
                                    placeholder="请输入您的手机号码">
                         </div>
-                        <div class="form-group marb20 blur" id="jsRefreshCode">
-                            {#                            <img src="/captcha/image/5b0fe7811ef645d9cb94cc7af579e855ec49819a/" alt="captcha"#}
-                            {#                                 class="captcha"/>#}
-                            {#                            <input type="hidden" name="captcha_0" value="5b0fe7811ef645d9cb94cc7af579e855ec49819a"#}
-                            {#                                   required id="id_captcha_0"><input type="text" name="captcha_1" required#}
-                            {#                                                                     id="id_captcha_1" autocapitalize="off"#}
-                            {#                                                                     autocomplete="off" autocorrect="off"#}
-                            {#                                                                     spellcheck="false">#}
+                        <div class="form-group marb20 blur {% if register_post_form.captcha %}errorput{% endif %}" id="jsRefreshCode">
+{#                                                        <img src="/captcha/image/5b0fe7811ef645d9cb94cc7af579e855ec49819a/" alt="captcha"#}
+{#                                                             class="captcha"/>#}
+{#                                                        <input type="hidden" name="captcha_0" value="5b0fe7811ef645d9cb94cc7af579e855ec49819a"#}
+{#                                                               required id="id_captcha_0"><input type="text" name="captcha_1" required#}
+{#                                                                                                 id="id_captcha_1" autocapitalize="off"#}
+{#                                                                                                 autocomplete="off" autocorrect="off"#}
+{#                                                                                                 spellcheck="false">#}
                             {{ register_get_form.captcha }}
                         </div>
                         <div class="clearfix">
-                            <div class="form-group marb8 verify-code ">
+                            <div class="form-group marb8 verify-code {% if register_post_form.code %}errorput{% endif %}">
                                 <input id="jsPhoneRegCaptcha" name="code"
                                        value="{{ register_post_form.code.value|default_if_none:'' }}" type="text"
                                        placeholder="输入手机验证码">
                             </div>
                             <input class="verify-code-btn sendcode" id="jsSendCode" value="发送验证码">
                         </div>
-                        <div class="form-group marb8 ">
+                        <div class="form-group marb8 {% if register_post_form.password %}errorput{% endif %}">
                             <input id="jsPhoneRegPwd" name="password"
                                    value="{{ register_post_form.password.value|default_if_none:'' }}" type="password"
                                    placeholder="请输入6-20位非中文字符密码">
