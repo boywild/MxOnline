@@ -6,7 +6,7 @@ from django.urls import reverse
 from MxOnline.settings import API_KEY_YUN_PIAN, REDIS_HOST, REDIS_PORT
 import json
 import redis
-from apps.user.forms import LoginForm, DynamicLoginForm, DynamicLoginPostForm
+from apps.user.forms import LoginForm, DynamicLoginForm, DynamicLoginPostForm, RegisterGetForm, RegisterPostForm
 from apps.user.models import UserProfile
 from utils.YunPian import single_send_sms
 from utils.random_str import generate_random
@@ -102,9 +102,29 @@ class LogoutView(View):
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
+        register_form = RegisterGetForm(request.GET)
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('index'))
-        return render(request, 'register.html')
+        return render(request, 'register.html', {
+            'register_form': register_form
+        })
 
     def post(self, request, *args, **kwargs):
-        pass
+        register_post_form = RegisterPostForm(request.POST)
+        if register_post_form.is_valid():
+            mobile = register_post_form.cleaned_data['mobile']
+            password = register_post_form.cleaned_data['password']
+
+            user = UserProfile(mobile=mobile)
+            user.username = mobile
+            user.mobile = mobile
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            register_get_form = RegisterGetForm()
+            return render(request, 'register.html', {
+                'register_post_form': register_post_form,
+                'register_get_form': register_get_form
+            })
