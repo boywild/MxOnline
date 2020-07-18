@@ -129,3 +129,8 @@ class RegisterView(View):
                 'register_post_form': register_post_form
 
             })
+
+
+class UserCenterView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-info.html')
