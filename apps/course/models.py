@@ -34,6 +34,9 @@ class Course(BaseModel):
     image = models.ImageField(verbose_name='封面图', upload_to='courses/%Y/%m', max_length=100)
     is_banner = models.BooleanField(verbose_name='是否广告位', default=False)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '课程'
         verbose_name_plural = verbose_name

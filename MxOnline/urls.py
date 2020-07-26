@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
+from django.views.static import serve
+from MxOnline.settings import MEDIA_ROOT
 from apps.user.views import LoginView, LogoutView, RegisterView, SendSmsView, DynamicLoginView, UserCenterView
 
 import xadmin
@@ -35,11 +37,13 @@ urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     path('login/', LoginView.as_view(), name="login"),
     path('d_login/', DynamicLoginView.as_view(), name="d_login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/', RegisterView.as_view(), name="register"),
     path('send_sms/', csrf_exempt(SendSmsView.as_view()), name="send_sms"),
-    path('usercenter/', UserCenterView.as_view(), name="usercenter")
+    path('usercenter/', UserCenterView.as_view(), name="usercenter"),
+    url(r'^org/', include(('apps.organization.urls', 'organizations'), namespace='org'))
 
 ]

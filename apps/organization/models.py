@@ -3,6 +3,7 @@ from apps.user.models import BaseModel
 from DjangoUeditor.models import UEditorField
 from six import python_2_unicode_compatible
 
+
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -10,9 +11,13 @@ class City(BaseModel):
     name = models.CharField(verbose_name='城市名', max_length=20)
     desc = models.CharField(verbose_name='描述', max_length=200, default='')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '城市'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class CourseOrg(BaseModel):
@@ -35,9 +40,20 @@ class CourseOrg(BaseModel):
     students = models.PositiveIntegerField(verbose_name='学习人数', default=0)
     courses_nums = models.PositiveIntegerField(verbose_name='课程数', default=0)
 
+    is_auth = models.BooleanField(verbose_name='是否已认证', default=False)
+    is_gold = models.BooleanField(verbose_name='是否金牌机构', default=False)
+
+    def courses(self):
+        courses = self.course_set.filter(is_classics=True)[:3]
+        return courses
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '机构'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class Teacher(BaseModel):
@@ -47,10 +63,13 @@ class Teacher(BaseModel):
     work_company = models.CharField(verbose_name='就只公司', max_length=200)
     work_position = models.CharField(verbose_name='工作职位', max_length=200)
     points = models.CharField(verbose_name='教学特点', max_length=200)
-    click_nums = models.CharField(verbose_name='浏览次数', max_length=200)
-    fav_nums = models.CharField(verbose_name='收藏次数', max_length=200)
+    click_nums = models.PositiveIntegerField(verbose_name='浏览次数', default=0)
+    fav_nums = models.PositiveIntegerField(verbose_name='收藏次数', default=0)
     age = models.CharField(verbose_name='年龄', max_length=200)
     image = models.ImageField(verbose_name='图像', upload_to='teacher/%Y/%m', max_length=100)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = '教师'

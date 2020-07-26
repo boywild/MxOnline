@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'captcha',
     'xadmin',
     'crispy_forms',
-    'reversion'
+    'reversion',
+    'pure_pagination'
 ]
 
 MIDDLEWARE = [
@@ -80,6 +81,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -155,3 +157,9 @@ API_KEY_YUN_PIAN = '6624878a09526a06579ad51e44ac7986'
 # redis配置
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 1,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
