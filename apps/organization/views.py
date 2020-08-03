@@ -8,6 +8,7 @@ from apps.organization.forms import AddAskForm
 
 # Create your views here.
 
+# 授课机构列表
 class OrgView(View):
     def get(self, request, *args, **kwargs):
         all_orgs = CourseOrg.objects.all()
@@ -51,6 +52,7 @@ class OrgView(View):
         })
 
 
+# 发送咨询
 class AddAskView(View):
     def post(self, request, *args, **kwargs):
         userask_form = AddAskForm(request.POST)
@@ -60,3 +62,56 @@ class AddAskView(View):
             return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': 'fail', 'msg': '添加出错'})
+
+
+# 机构详情首页
+class OrgHomeView(View):
+    def get(self, request, org_id, *args, **kwargs):
+        current_page = 'home'
+        course_org = CourseOrg.objects.get(id=org_id)
+        course_org.click_nums += 1
+        course_org.save()
+
+        all_courses = course_org.course_set.all()[:3]
+        all_teacher = course_org.teacher_set.all()[:1]
+        return render(request, 'org-detail-homepage.html', {
+            'org_id': org_id,
+            'current_page': current_page,
+            'course_org': course_org,
+            'all_courses': all_courses,
+            "all_teacher": all_teacher
+        })
+
+
+class OrgTeacherView(View):
+    def get(self, request, org_id, *args, **kwargs):
+        current_page = 'teacher'
+        course_org = CourseOrg.objects.get(id=org_id)
+        all_teacher = course_org.teacher_set.all()
+        return render(request, 'org-detail-teachers.html', {
+            'org_id': org_id,
+            'current_page': current_page,
+            'course_org': course_org,
+            "all_teacher": all_teacher
+        })
+
+
+class OrgCourseView(View):
+    def get(self, request, org_id, *args, **kwargs):
+        current_page = 'course'
+        course_org = CourseOrg.objects.get(id=org_id)
+        all_courses = course_org.course_set.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(all_courses, per_page=10, request=request)
+        courses = p.page(page)
+
+        return render(request, 'org-detail-course.html', {
+            'org_id': org_id,
+            'current_page': current_page,
+            'course_org': course_org,
+            'all_courses': courses,
+        })

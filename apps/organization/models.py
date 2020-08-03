@@ -71,6 +71,9 @@ class Teacher(BaseModel):
     def __str__(self):
         return self.name
 
+    def course_num(self):
+        return self.course_set.all().count()
+
     class Meta:
         verbose_name = '教师'
         verbose_name_plural = verbose_name
