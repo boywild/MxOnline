@@ -46,5 +46,6 @@ urlpatterns = [
     path('usercenter/', UserCenterView.as_view(), name="usercenter"),
     url(r'^org/', include(('apps.organization.urls', 'organizations'), namespace='org')),
     url(r'^op/', include(('apps.operation.urls', 'operation'), namespace='op')),
+    url(r'^course/', include(('apps.course.urls', 'course'), namespace='course')),
 
 ]

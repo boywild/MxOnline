@@ -152,10 +152,15 @@ class OrgDescView(View):
             user_fav = UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2)
             if user_fav:
                 is_fav = True
-                
+
         return render(request, 'org-detail-desc.html', {
             'org_id': org_id,
             'course_org': course_org,
             'current_page': current_page,
             'is_fav': is_fav
         })
+
+
+class TeachersView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'teachers-list.html')
