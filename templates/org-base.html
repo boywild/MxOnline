@@ -73,9 +73,9 @@
                         </p>
                     </div>
                     <div class="btn fr collectionbtn  notlogin
-                 "data-favid="22" data-fav-type="1">
+                 " data-favid="22" data-fav-type="1">
                         {% if is_fav %}
-                            取消收藏
+                            已收藏
                         {% else %}
                             收藏
                         {% endif %}
@@ -155,7 +155,7 @@
             success: function (data) {
                 if (data.status == 'fail') {
                     if (data.msg == '用户未登录') {
-                        window.location.href = "/login";
+                        window.location.href = '{% url 'login' %}';
                     } else {
                         alert(data.msg)
                     }
@@ -169,7 +169,7 @@
 
     $(document).ready(function () {
         $('.collectionbtn').on('click', function () {
-            add_fav($(this), 1, 2);
+            add_fav($(this), {{ org_id }}, 2);
         });
     });
     $(function () {
