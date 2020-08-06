@@ -44,6 +44,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
     path('send_sms/', csrf_exempt(SendSmsView.as_view()), name="send_sms"),
     path('usercenter/', UserCenterView.as_view(), name="usercenter"),
-    url(r'^org/', include(('apps.organization.urls', 'organizations'), namespace='org'))
+    url(r'^org/', include(('apps.organization.urls', 'organizations'), namespace='org')),
+    url(r'^op/', include(('apps.operation.urls', 'operation'), namespace='op')),
 
 ]

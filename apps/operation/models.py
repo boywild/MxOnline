@@ -4,6 +4,7 @@ from apps.course.models import Course
 from apps.user.models import UserProfile
 from six import python_2_unicode_compatible
 
+
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -16,6 +17,7 @@ class UserAsk(BaseModel):
         verbose_name = '课程咨询'
         verbose_name_plural = verbose_name
 
+
 @python_2_unicode_compatible
 class CourseComment(BaseModel):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
@@ -25,6 +27,7 @@ class CourseComment(BaseModel):
     class Meta:
         verbose_name = '课程留言'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class UserCourse(BaseModel):
@@ -37,13 +40,22 @@ class UserCourse(BaseModel):
         verbose_name = '我的课程'
         verbose_name_plural = verbose_name
 
+
 @python_2_unicode_compatible
 class UserFavorite(BaseModel):
+    TYPE_CHOICE = (
+        (1, '课程'),
+        (2, '课程机构'),
+        (3, '教师')
+    )
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
+    fav_id = models.PositiveIntegerField(verbose_name='收藏id', blank=True, null=True)
+    fav_type = models.PositiveIntegerField(verbose_name='收藏类型', choices=TYPE_CHOICE, default=1)
 
     class Meta:
         verbose_name = '我的收藏'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class UserMessage(BaseModel):

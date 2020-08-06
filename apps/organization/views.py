@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
-from apps.organization.models import CourseOrg, City
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from apps.course.models import Course
+from apps.organization.models import CourseOrg, City, Teacher
+from apps.operation.models import UserFavorite
 from apps.organization.forms import AddAskForm
+from apps.operation.forms import UserFavForm
 
 
 # Create your views here.
@@ -14,6 +17,11 @@ class OrgView(View):
         all_orgs = CourseOrg.objects.all()
         all_citys = City.objects.all()
         hot_orgs = all_orgs.order_by('-click_nums')[:3]
+
+        # is_fav = False
+        # user_fav = UserFavorite.objects.get(user_id=request.user)
+        # if user_fav:
+        #     is_fav = True
 
         # 按类别筛选机构
         ct_name = request.GET.get('ct', '')
@@ -48,7 +56,8 @@ class OrgView(View):
             'ct_name': ct_name,
             'city_id': city_id,
             'sort': sort,
-            'hot_orgs': hot_orgs
+            'hot_orgs': hot_orgs,
+            'is_fav': False
         })
 
 
@@ -114,4 +123,15 @@ class OrgCourseView(View):
             'current_page': current_page,
             'course_org': course_org,
             'all_courses': courses,
+        })
+
+
+class OrgDescView(View):
+    def get(self, request, org_id, *args, **kwargs):
+        current_page = 'desc'
+        course_org = CourseOrg.objects.get(id=org_id)
+        return render(request, 'org-detail-desc.html', {
+            'org_id': org_id,
+            'course_org': course_org,
+            'current_page': current_page
         })
