@@ -27,24 +27,24 @@
                     <div id="inWindow">
                         <div class="tab_cont " id="content">
                             <div class="group_list">
-                                {% for couse in all_courses.object_list %}
+                                {% for course in all_courses.object_list %}
                                     <div class="box">
                                         <a href="course-detail.html">
                                             <img width="280" height="350" class="scrollLoading"
-                                                 src="{{ MEDIA_URL }}{{ couse.image }}"/>
+                                                 src="{{ MEDIA_URL }}{{ course.image }}"/>
                                         </a>
                                         <div class="des">
                                             <a href="course-detail.html">
-                                                <h2>{{ couse.name }}</h2>
+                                                <h2>{{ course.name }}</h2>
                                             </a>
-                                            <span class="fl">时长：<i class="key">{{ couse.learn_times }}</i></span>
-                                            <span class="fr">学习人数：{{ couse.students }}&nbsp;&nbsp;</span>
+                                            <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
+                                            <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
                                         </div>
                                         <div class="bottom">
-                                            <a href="course-detail.html"><span class="fl">来自慕课网</span></a>
+                                            <a href="course-detail.html"><span class="fl">{{ course.course_org }}</span></a>
                                             <span class="star fr  notlogin
                                         " data-favid="15">
-                                        {{ couse.fav_nums }}
+                                        {{ course.fav_nums }}
                                     </span>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                 </dt>
                                 <dd>
                                     <a target="_blank" href=""><h2>{{ hot.name }}</h2></a>
-                                    <span class="fl">难度：<i class="key">{{ hot.degree }}</i></span>
+                                    <span class="fl">难度：<i class="key">{{ hot.get_degree_display }}</i></span>
                                 </dd>
                             </dl>
                         {% endfor %}

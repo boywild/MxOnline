@@ -163,4 +163,26 @@ class OrgDescView(View):
 
 class TeachersView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'teachers-list.html')
+        all_teachers = Teacher.objects.all()
+        teacher_nums = all_teachers.count()
+        hot_teacher = all_teachers.order_by('-click_nums')[:2]
+        sort = request.GET.get('sort', '')
+        if sort:
+            all_teachers = all_teachers.order_by('-click_nums')
+        else:
+            all_teachers = all_teachers
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_teachers, per_page=1, request=request)
+        teachers = p.page(page)
+
+        return render(request, 'teachers-list.html', {
+            'sort': sort,
+            'all_teachers': teachers,
+            'teacher_nums': teacher_nums,
+            'hot_teacher': hot_teacher
+        })
