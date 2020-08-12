@@ -186,3 +186,8 @@ class TeachersView(View):
             'teacher_nums': teacher_nums,
             'hot_teacher': hot_teacher
         })
+
+
+class TeacherDetailView(View):
+    def get(self, request, teacher_id, *args, **kwargs):
+        return render(request, 'teacher-detail.html')
