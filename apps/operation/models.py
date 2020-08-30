@@ -31,13 +31,11 @@ class CourseComment(BaseModel):
 
 @python_2_unicode_compatible
 class UserCourse(BaseModel):
-    FAV_TYPE_CHOICE = ((1, "课程"), (2, "课程机构"), (3, "讲师"))
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户')
-    fav_id = models.PositiveIntegerField(verbose_name="数据id")
-    fav_type = models.PositiveIntegerField(verbose_name="收藏类型", choices=FAV_TYPE_CHOICE, default=1)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
 
     class Meta:
-        verbose_name = '我的课程'
+        verbose_name = '用户课程'
         verbose_name_plural = verbose_name
 
 

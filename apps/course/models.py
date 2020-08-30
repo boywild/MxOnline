@@ -41,6 +41,9 @@ class Course(BaseModel):
         verbose_name = '课程'
         verbose_name_plural = verbose_name
 
+    def lesson_nums(self):
+        return self.lesson_set.all().count()
+
 @python_2_unicode_compatible
 class Lesson(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
