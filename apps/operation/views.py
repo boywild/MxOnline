@@ -8,6 +8,30 @@ from apps.operation.models import UserFavorite
 
 
 # Create your views here.
+def favFunc(type, fav_type, fav_id):
+    if fav_type == 1:
+        course = Course.objects.get(id=fav_id)
+        if type == 'increase':
+            course.fav_nums += 1
+        elif type == 'decrease':
+            course.fav_nums -= 1
+        course.save()
+    # 课程机构
+    elif fav_type == 2:
+        course_org = CourseOrg.objects.get(id=fav_id)
+        if type == 'increase':
+            course_org.fav_nums += 1
+        elif type == 'decrease':
+            course_org.fav_nums -= 1
+        course_org.save()
+    # 教师
+    elif fav_type == 3:
+        teacher = Teacher.objects.get(id=fav_id)
+        if type == 'increase':
+            teacher.fav_nums += 1
+        elif type == 'decrease':
+            teacher.fav_nums -= 1
+        teacher.save()
 
 
 class AddFavView(View):
@@ -26,22 +50,7 @@ class AddFavView(View):
             # 已收藏
             if existed_records:
                 existed_records.delete()
-                # 课程
-                if fav_type == 1:
-                    course = Course.objects.get(id=fav_id)
-                    course.fav_nums -= 1
-                    course.save()
-                # 课程机构
-                elif fav_type == 2:
-                    course_org = CourseOrg.objects.get(id=fav_id)
-                    course_org.fav_nums -= 1
-                    course_org.save()
-                # 教师
-                elif fav_type == 3:
-                    teacher = Teacher.objects.get(id=fav_id)
-                    teacher.fav_nums -= 1
-                    teacher.save()
-
+                favFunc('decrease', fav_type, fav_id)
                 return JsonResponse({
                     'status': 'success',
                     'msg': '收藏'
@@ -53,6 +62,7 @@ class AddFavView(View):
                 user_fav.fav_id = fav_id
                 user_fav.user = request.user
                 user_fav.save()
+                favFunc('increase', fav_type, fav_id)
 
                 return JsonResponse({
                     "status": "success",

@@ -177,7 +177,7 @@ class TeachersView(View):
         except PageNotAnInteger:
             page = 1
 
-        p = Paginator(all_teachers, per_page=1, request=request)
+        p = Paginator(all_teachers, per_page=5, request=request)
         teachers = p.page(page)
 
         return render(request, 'teachers-list.html', {
@@ -190,4 +190,13 @@ class TeachersView(View):
 
 class TeacherDetailView(View):
     def get(self, request, teacher_id, *args, **kwargs):
-        return render(request, 'teacher-detail.html')
+        teacher = Teacher.objects.get(id=teacher_id)
+        hot_teachers = Teacher.objects.order_by('-click_nums')[:3]
+        is_fav_teacher = UserFavorite.objects.filter(user=request.user, fav_id=teacher_id, fav_type=3)
+        is_fav_org = UserFavorite.objects.filter(user=request.user, fav_id=teacher.course_org.id, fav_type=2)
+        return render(request, 'teacher-detail.html', {
+            'teacher': teacher,
+            'hot_teachers': hot_teachers,
+            'is_fav_teacher': is_fav_teacher,
+            'is_fav_org': is_fav_org
+        })
