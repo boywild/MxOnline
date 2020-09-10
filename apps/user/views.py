@@ -134,3 +134,28 @@ class RegisterView(View):
 class UserCenterView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'usercenter-info.html')
+
+
+class UserCenterMyCourseView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-mycourse.html')
+
+
+class UserCenterMyFavCourseiew(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-fav-course.html')
+
+
+class UserCenterMyFavTeacherView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-fav-teacher.html')
+
+
+class UserCenterMyFavOrgView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-fav-org.html')
+
+
+class UserCenterMyMessageView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'usercenter-message.html')

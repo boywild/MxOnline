@@ -34,6 +34,10 @@ class CourseListView(View):
 
 
 class CourseDetailView(View):
+    '''
+    课程详情
+    '''
+
     def get(self, request, course_id, *args, **kwargs):
         course = Course.objects.get(id=course_id)
         is_fav_teacher = UserFavorite.objects.filter(user_id=request.user, fav_type=3, fav_id=course.teacher.id)
@@ -46,5 +50,12 @@ class CourseDetailView(View):
 
 
 class CourseLessonView(View):
+    '''
+    学习课程
+    '''
+
     def get(self, request, course_id, *args, **kwargs):
-        return render(request, 'course-video.html')
+        course_detail = Course.objects.get(id=course_id)
+        return render(request, 'course-video.html', {
+            'course_detail': course_detail
+        })

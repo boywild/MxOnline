@@ -20,7 +20,8 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.views.static import serve
 from MxOnline.settings import MEDIA_ROOT
-from apps.user.views import LoginView, LogoutView, RegisterView, SendSmsView, DynamicLoginView, UserCenterView
+from apps.user.views import LoginView, LogoutView, RegisterView, SendSmsView, DynamicLoginView, UserCenterView, \
+    UserCenterMyCourseView, UserCenterMyMessageView
 
 import xadmin
 
@@ -43,9 +44,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/', RegisterView.as_view(), name="register"),
     path('send_sms/', csrf_exempt(SendSmsView.as_view()), name="send_sms"),
-    path('usercenter/', UserCenterView.as_view(), name="usercenter"),
     url(r'^org/', include(('apps.organization.urls', 'organizations'), namespace='org')),
     url(r'^op/', include(('apps.operation.urls', 'operation'), namespace='op')),
     url(r'^course/', include(('apps.course.urls', 'course'), namespace='course')),
-
+    url(r'^users/', include(('apps.user.urls', 'users'), namespace='users'))
 ]
