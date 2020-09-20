@@ -4,6 +4,7 @@ from apps.organization.models import CourseOrg, Teacher
 from DjangoUeditor.models import UEditorField
 from six import python_2_unicode_compatible
 
+
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -44,15 +45,20 @@ class Course(BaseModel):
     def lesson_nums(self):
         return self.lesson_set.all().count()
 
+
 @python_2_unicode_compatible
 class Lesson(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
     name = models.CharField(verbose_name='章节', max_length=100)
     learn_times = models.PositiveIntegerField(verbose_name='章节时长/分', default=0)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '课程章节'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class Video(BaseModel):
@@ -61,9 +67,13 @@ class Video(BaseModel):
     learn_times = models.PositiveIntegerField(verbose_name='视频时长/分', default=0)
     url = models.CharField(verbose_name='视频链接', max_length=1000)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '课程视频'
         verbose_name_plural = verbose_name
+
 
 @python_2_unicode_compatible
 class CourseResource(BaseModel):
@@ -71,6 +81,22 @@ class CourseResource(BaseModel):
     name = models.CharField(verbose_name='资源名', max_length=100)
     file = models.FileField(verbose_name='资源文件', upload_to='courses/resourse/%Y/%m', max_length=200)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = '课程资源'
+        verbose_name_plural = verbose_name
+
+
+@python_2_unicode_compatible
+class CourseTag(BaseModel):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程')
+    tag = models.CharField(verbose_name='标签', max_length=100)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        verbose_name = '课程标签'
         verbose_name_plural = verbose_name

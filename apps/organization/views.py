@@ -192,8 +192,13 @@ class TeacherDetailView(View):
     def get(self, request, teacher_id, *args, **kwargs):
         teacher = Teacher.objects.get(id=teacher_id)
         hot_teachers = Teacher.objects.order_by('-click_nums')[:3]
-        is_fav_teacher = UserFavorite.objects.filter(user=request.user, fav_id=teacher_id, fav_type=3)
-        is_fav_org = UserFavorite.objects.filter(user=request.user, fav_id=teacher.course_org.id, fav_type=2)
+        is_fav_teacher = False
+        is_fav_org = False
+        if request.user.is_authenticated:
+            if UserFavorite.objects.filter(user=request.user, fav_id=teacher_id, fav_type=3):
+                is_fav_teacher = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=teacher.course_org.id, fav_type=2):
+                is_fav_org = True
         return render(request, 'teacher-detail.html', {
             'teacher': teacher,
             'hot_teachers': hot_teachers,

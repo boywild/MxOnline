@@ -1,5 +1,5 @@
 import xadmin
-from .models import Course, CourseResource, Lesson, Video
+from .models import Course, CourseResource, Lesson, Video, CourseTag
 
 
 class GlobalSetting(object):
@@ -29,10 +29,15 @@ class VideoAdmin(object):
     pass
 
 
+class CourseTagAdmin(object):
+    pass
+
+
 xadmin.site.register(Course, CourseAdmin)
 xadmin.site.register(CourseResource, CourseResourceAdmin)
 xadmin.site.register(Lesson, LessonAdmin)
 xadmin.site.register(Video, VideoAdmin)
+xadmin.site.register(CourseTag, CourseTagAdmin)
 
 xadmin.site.register(xadmin.views.CommAdminView, GlobalSetting)
 xadmin.site.register(xadmin.views.BaseAdminView, BaseSetting)
