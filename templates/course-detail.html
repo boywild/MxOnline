@@ -46,7 +46,7 @@
                                 <li class="piclist"><span class="pram word4">学习用户：</span>
                                     {% for study_user in course.usercourse_set.all|slice:3 %}
                                         <span class="pic"><img width="40" height="40"
-                                                               src="{{ MEDIA_URL }}{{ study_user.image }}"/></span>
+                                                               src="{{ MEDIA_URL }}{{ study_user.user.image }}"/></span>
                                     {% endfor %}
 
                                 </li>
