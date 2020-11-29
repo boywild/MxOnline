@@ -15,13 +15,11 @@ def single_send_sms(apiKey, code, mobile):
 
 
 if __name__ == '__main__':
-    res = single_send_sms('6624878a09526a06579ad51e44ac7986', '123456', '15827196096')
-
-    res_json = json.loads(res.text)
-    code = res_json['code']
-    msg = res_json['msg']
+    res = single_send_sms('6624878a09526a06579ad51e44ac7986', '877666', '15827196096')
+    print(res)
+    code = res['code']
+    msg = res['msg']
     if code == 0:
         print('发送成功')
     else:
         print('发送失败')
-    print(res.text)

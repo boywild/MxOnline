@@ -10,6 +10,7 @@ from apps.user.forms import LoginForm, DynamicLoginForm, DynamicLoginPostForm, R
 from apps.user.models import UserProfile
 from utils.YunPian import single_send_sms
 from utils.random_str import generate_random
+from utils.TencentCos import uploadImg
 
 
 # Create your views here.
@@ -159,3 +160,14 @@ class UserCenterMyFavOrgView(View):
 class UserCenterMyMessageView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'usercenter-message.html')
+
+
+class UserImgUpload(View):
+    def post(self, request, *args, **kwargs):
+        img = request.FILES.get('image', '')
+        print(img)
+        print(request.FILES)
+        if not img:
+            return JsonResponse({'status': 'fail', 'msg': '上传失败'})
+        uploadImg(img.name, img)
+        return JsonResponse({'status': 'success', 'msg': '上传成功'})

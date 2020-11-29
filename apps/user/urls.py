@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 from apps.user.views import UserCenterView, UserCenterMyMessageView, UserCenterMyCourseView, UserCenterMyFavCourseiew, \
-    UserCenterMyFavOrgView, UserCenterMyFavTeacherView
+    UserCenterMyFavOrgView, UserCenterMyFavTeacherView, UserImgUpload
 
 urlpatterns = [
     path('info/', UserCenterView.as_view(), name="info"),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('fav_teacher/', UserCenterMyFavTeacherView.as_view(), name="myfav_teacher"),
     path('fav_org/', UserCenterMyFavOrgView.as_view(), name="myfav_org"),
     path('message/', UserCenterMyMessageView.as_view(), name="mymessage"),
+    path('image/upload/', UserImgUpload.as_view(), name="user_img_upload"),
 ]
