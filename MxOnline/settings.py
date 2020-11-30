@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mxonline',
         'USER': 'root',
-        'PASSWORD': 'ct_19911110_',
+        'PASSWORD': '',
         'HOST': 'cdb-j8rkod9m.cd.tencentcdb.com',
         'PORT': '10107'
     }

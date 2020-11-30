@@ -6,10 +6,10 @@ import json
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
-app_id = '1258628713'
-secret_id = 'AKIDwuPhjur2EAc08oMpOhkphKVO2Qedi2rS'
-secret_key = 'VkkU4e0MgmPmshFcmmcbJkunjkU0EG9S'
-region = 'ap-beijing'
+app_id = ''
+secret_id = ''
+secret_key = ''
+region = ''
 proxies = {
     'http': '127.0.0.1:8080'
 }
