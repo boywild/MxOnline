@@ -1,6 +1,7 @@
 from django.db import models
 from apps.user.models import BaseModel
 from DjangoUeditor.models import UEditorField
+import six
 from six import python_2_unicode_compatible
 from django.conf import settings
 
@@ -50,7 +51,14 @@ class CourseOrg(BaseModel):
 
     def image_url(self):
         print(self.image)
-        return '{prefix}{url}'.format(prefix=settings.QINIU_BUCKET_DOMAIN, url=self.image)
+        qiniu_secure_url = None
+        if isinstance(settings.QINIU_SECURE_URL, six.string_types):
+            if settings.QINIU_SECURE_URL.lower() in ('true', '1'):
+                qiniu_secure_url = True
+            else:
+                qiniu_secure_url = False
+        protocol = u'https://' if qiniu_secure_url else u'http://'
+        return '{protocol}{prefix}/{url}'.format(protocol=protocol, prefix=settings.QINIU_BUCKET_DOMAIN, url=self.image)
 
     def __str__(self):
         return self.name
