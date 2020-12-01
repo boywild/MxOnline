@@ -2,6 +2,7 @@ from django.db import models
 from apps.user.models import BaseModel
 from DjangoUeditor.models import UEditorField
 from six import python_2_unicode_compatible
+from django.conf import settings
 
 
 # Create your models here.
@@ -46,6 +47,10 @@ class CourseOrg(BaseModel):
     def courses(self):
         courses = self.course_set.filter(is_classics=True)[:3]
         return courses
+
+    def image_url(self):
+        print(self.image)
+        return '{prefix}{url}'.format(prefix=settings.QINIU_BUCKET_DOMAIN, url=self.image)
 
     def __str__(self):
         return self.name

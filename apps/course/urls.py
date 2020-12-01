@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from apps.course.views import CourseListView, CourseDetailView, CourseLessonView,CourseVideoView,CourseCommentView
+from apps.course.views import CourseListView, CourseDetailView, CourseLessonView, CourseVideoView, CourseCommentView
 
 urlpatterns = [
     url(r'^list/$', CourseListView.as_view(), name='list'),

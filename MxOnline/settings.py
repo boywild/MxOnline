@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import sys
 import six
-
+import qiniustorage
 if six.PY3 and sys.getdefaultencoding() == 'ascii':
     import imp
 
@@ -163,3 +163,11 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2,
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+# 七牛云存储
+QINIU_ACCESS_KEY = ''
+QINIU_SECRET_KEY = ''
+QINIU_BUCKET_NAME = ''
+QINIU_BUCKET_DOMAIN = ''
+QINIU_SECURE_URL = False
+DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuStorage'
